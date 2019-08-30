@@ -4,6 +4,7 @@ class _Node {
         this.next = next;
     }
 }
+
 class Stack {
     constructor() {
         this.top = null;
@@ -65,19 +66,47 @@ function is_palindrome(s) {
     return true;
 }
 
-function is_matching(s) {
+function matching(string) {
     let stack = new Stack();
+    // string = string.toLowerCase().replace(/[^a-zA-Z0-9]/g, "");
 
-    for (let i = 0; i < s.length; i++) {
-        if (s[i] === '(') {
-            stack.push(s[i]);
-        } else if (s[i] === ')') {
-            const top = peek(stack);
-            if (!top) {
+    console.log(string.length);
+
+
+    for (let i = 0; i < string.length; i++) {
+        if (string[i] === '(') {
+            stack.push(string[i])
+        }
+
+        if (string[i] === ')') {
+            if (isEmpty(stack)) {
+                console.log('Close parenthesis without an open parenthesis at: ' + i)
                 return false;
-            } stack.pop();
+            }
+            stack.pop()
         }
     }
+
+    if (isEmpty(stack)) {
+        return true;
+    }
+    console.log('missing a )')
+    return false;
+
+}
+
+function sort(stack) {
+    let secondStack = new Stack();
+    let temp;
+
+    while (stack.top) {
+        temp = stack.pop();
+        while (secondStack.top && temp > secondStack.top.data) {
+            stack.push(secondStack.pop());
+        }
+        secondStack.push(temp);
+    }
+    return secondStack;
 }
 
 function main() {
@@ -90,11 +119,24 @@ function main() {
     starTrek.push('Scotty');
     starTrek.pop('McCoy');
 
+    const numberStack = new Stack();
+    numberStack.push(1);
+    numberStack.push(6);
+    numberStack.push(3);
+    numberStack.push(7);
+    numberStack.push(5);
+    numberStack.push(2);
+    numberStack.push(4);
+
+    console.log(display(sort(numberStack)));
+
+
     display(starTrek);
     console.log(is_palindrome("dad"));
     console.log(is_palindrome("A man, a plan, a canal: Panama"));
     console.log(is_palindrome("1001"));
     console.log(is_palindrome("Tauhida"));
+    console.log(matching("()()())"));
 
 
 }
