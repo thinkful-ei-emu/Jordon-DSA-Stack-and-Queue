@@ -40,13 +40,12 @@ class Queue {
     }
     //O(1)
 
-}
-
-function peek(q) {
-    if (q.first === null) {
-        return null;
-    } else {
-        return q.first.value;
+    peek(q) {
+        if (q.first === null) {
+            return null;
+        } else {
+            return q.first.value;
+        }
     }
 }
 
@@ -77,3 +76,5 @@ function main() {
 }
 
 main();
+
+module.exports = Queue;
