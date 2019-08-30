@@ -53,7 +53,12 @@ function isEmpty(q) {
     return !q.first;
 }
 
-function display() { }
+function display(queue) {
+    while (queue.first !== null) {
+        console.log(queue.first.value);
+        stack.first = queue.first.next;
+    }
+}
 
 function main() {
     const starTrekQ = new Queue();
@@ -63,6 +68,10 @@ function main() {
     starTrekQ.enqueue('Sulu');
     starTrekQ.enqueue('Checkov');
 
+    starTrek.dequeue();
+    starTrek.dequeue();
+
+    console.log(display(starTrek));
 
 }
 
